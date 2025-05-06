@@ -65,7 +65,10 @@ class wss:
 
     def _on_message(self, data, message):
         if data:
-            sys.stdout.buffer.write(message)
+            try:
+                sys.stdout.buffer.write(message)
+            except Exception:
+                sys.exit(1)
         if self.duration > 0:
             if self.duration < (time.time() - self.start_time):
                 raise KeyboardInterrupt
